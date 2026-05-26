@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プロフィール | 高橋写真店</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .profile-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .profile-left { position: sticky; top: 100px; }
+
+    .profile-photo {
+      width: 100%;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 24px;
+      border: 4px solid var(--green-light);
+      background: linear-gradient(145deg, #b8e4cc, #4aaa72);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-name {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .profile-name h2 {
+      font-size: 1.6rem;
+      color: var(--green-dark);
+      letter-spacing: 0.15em;
+      margin-bottom: 4px;
+    }
+
+    .profile-name .name-en {
+      font-size: 0.72rem;
+      color: var(--green);
+      letter-spacing: 0.35em;
+    }
+
+    .profile-sns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sns-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--gray);
+      font-size: 0.82rem;
+      transition: all 0.2s;
+    }
+
+    .sns-btn:hover {
+      border-color: var(--green);
+      color: var(--green-dark);
+      background: var(--green-bg);
+    }
+
+    .sns-icon { font-size: 1.2rem; }
+
+    /* Right side */
+    .profile-right {}
+
+    .profile-catch {
+      font-size: 1.3rem;
+      color: var(--green-dark);
+      letter-spacing: 0.08em;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      padding-left: 20px;
+      border-left: 4px solid var(--green-light);
+    }
+
+    .profile-text p {
+      font-size: 0.9rem;
+      color: #444;
+      line-height: 2.0;
+      margin-bottom: 18px;
+    }
+
+    .profile-data {
+      margin-top: 40px;
+      border-top: 2px solid var(--border);
+      padding-top: 36px;
+    }
+
+    .profile-data h3 {
+      font-size: 1rem;
+      color: var(--green-dark);
+      letter-spacing: 0.12em;
+      margin-bottom: 20px;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+    }
+
+    .data-table tr { border-bottom: 1px solid var(--border); }
+
+    .data-table th {
+      text-align: left;
+      padding: 14px 16px 14px 0;
+      color: var(--green);
+      font-weight: normal;
+      width: 140px;
+      vertical-align: top;
+    }
+
+    .data-table td {
+      padding: 14px 0;
+      color: #444;
+      line-height: 1.8;
+    }
+
+    /* Thought section */
+    .thought-section {
+      background: var(--green-bg);
+    }
+
+    .thought-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .thought-inner p {
+      font-size: 0.92rem;
+      color: #444;
+      line-height: 2.1;
+      margin-bottom: 20px;
+    }
+
+    .thought-quote {
+      background: var(--white);
+      border-left: 4px solid var(--green);
+      padding: 24px 32px;
+      border-radius: 0 8px 8px 0;
+      margin: 32px 0;
+      font-size: 1.05rem;
+      color: var(--green-dark);
+      line-height: 1.9;
+      letter-spacing: 0.05em;
+    }
+
+    /* Equipment */
+    .equip-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .equip-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .equip-card .e-label {
+      font-size: 0.65rem;
+      color: var(--green);
+      letter-spacing: 0.25em;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .equip-card h4 {
+      font-size: 0.9rem;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .equip-card p {
+      font-size: 0.78rem;
+      color: var(--gray);
+    }
+
+    @media (max-width: 860px) {
+      .profile-wrap { grid-template-columns: 1fr; }
+      .profile-left { position: static; }
+      .profile-photo { max-width: 300px; margin-left: auto; margin-right: auto; }
+      .equip-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="page-body">
+
+  <header>
+    <a href="index.html" class="logo">
+      <span class="logo-main">高橋写真店</span>
+      <span class="logo-sub">TAKAHASHI PHOTO STUDIO</span>
+    </a>
+    <nav class="header-nav">
+      <a href="works.html">作例</a>
+      <a href="menu.html">メニュー</a>
+      <a href="profile.html" class="active">プロフィール</a>
+      <a href="voice.html">お客様の声</a>
+      <a href="contact.html" class="nav-contact">お問い合わせ</a>
+    </nav>
+  </header>
+
+  <div class="page-hero">
+    <h1>プロフィール</h1>
+    <span class="page-hero-en">PROFILE</span>
+  </div>
+
+  <!-- PROFILE MAIN -->
+  <section class="section">
+    <div class="profile-wrap">
+      <div class="profile-left">
+        <div class="profile-photo">
+          <img src="profile.jpg" alt="髙橋優">
+        </div>
+        <div class="profile-name">
+          <h2>髙橋優</h2>
+          <span class="name-en">Masaru Takahashi</span>
+        </div>
+        <div class="profile-sns">
+          <a href="https://www.instagram.com/masa_photo7/" target="_blank" rel="noopener" class="sns-btn">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:20px;height:20px;flex-shrink:0;">
+              <rect x="2" y="2" width="20" height="20" rx="5" stroke="#4a8c6e" stroke-width="1.8" fill="none"/>
+              <circle cx="12" cy="12" r="4.5" stroke="#4a8c6e" stroke-width="1.8" fill="none"/>
+              <circle cx="17.5" cy="6.5" r="1.2" fill="#4a8c6e"/>
+            </svg>
+            @masa_photo7
+          </a>
+        </div>
+      </div>
+
+      <div class="profile-right">
+        <p class="profile-catch">「写真を見るたびに、あの日の幸せが蘇る。」<br>そんな一枚を届けたい。</p>
+
+        <div class="profile-text">
+          <p>はじめまして。フォトグラファーの髙橋優と申します。七五三・家族写真・お宮参りなどの記念撮影を専門に、大阪・関西を中心に活動しています。</p>
+          <p>写真を始めたのは学生時代。友人の笑顔をカメラに収めることが純粋に楽しくて、気がつけばカメラが人生の一部になっていました。</p>
+          <p>家族写真や七五三の撮影をさせていただくようになってから、「写真を渡すたびに、お客様に喜んでもらえる」ことが何よりの喜びになりました。泣いていた子どもが笑顔になった瞬間、家族全員が同じ方向を向いた瞬間——そういう「本物の瞬間」を残すことを大切にしています。</p>
+          <p>緊張しなくても大丈夫です。撮影はリラックスして楽しんでいただけるよう、雑談しながらナチュラルな雰囲気をつくるよう心がけています。</p>
+        </div>
+
+        <div class="profile-data">
+          <h3>基本情報</h3>
+          <table class="data-table">
+            <tr>
+              <th>活動エリア</th>
+              <td>大阪・兵庫・京都など（関西中心・全国対応）</td>
+            </tr>
+            <tr>
+              <th>専門ジャンル</th>
+              <td>七五三、お宮参り、家族写真</td>
+            </tr>
+            <tr>
+              <th>納品形式</th>
+              <td>オンラインストレージ（Googleフォト）<br>メディア送付（DVDまたはUSB）</td>
+            </tr>
+            <tr>
+              <th>お支払い</th>
+              <td>銀行振込・現金・PayPay</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THOUGHT -->
+  <section class="section thought-section">
+    <div class="section-label">
+      <h2>撮影への想い</h2>
+      <span class="en">PHILOSOPHY</span>
+      <div class="divider"></div>
+    </div>
+
+    <div class="thought-inner">
+      <p>七五三や家族写真は、「特別な日」を記録するだけでなく、その場にいる全員の気持ちをひとつの写真に閉じ込める作業だと思っています。</p>
+
+      <div class="thought-quote">
+        子どもの笑顔は、親の安心から生まれる。<br>
+        親の笑顔は、子どもの笑顔から生まれる。<br>
+        その循環を、カメラで静かに切り取る。
+      </div>
+
+      <p>撮影中は、できる限りご家族のそばにいて、一緒に楽しみながら撮影します。「撮られている」という緊張感より、「みんなで楽しんでいる」という安心感を大切にしたいと思っています。</p>
+      <p>大切な記念日を、一生の宝物になる写真として残せるよう、全力でサポートします。</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">高橋写真店</div>
+    <nav class="footer-nav">
+      <a href="index.html">トップ</a>
+      <a href="works.html">作例</a>
+      <a href="menu.html">メニュー</a>
+      <a href="profile.html">プロフィール</a>
+      <a href="voice.html">お客様の声</a>
+      <a href="contact.html">お問い合わせ</a>
+    </nav>
+    <p class="footer-copy">Copyright © 2026 高橋写真店 All Rights Reserved.</p>
+  </footer>
+
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('scrollTop').classList.toggle('visible', scrollY > 300);
+    });
+  </script>
+</body>
+</html>

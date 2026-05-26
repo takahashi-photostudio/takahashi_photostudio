@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>まさる写真工房 | 家族・七五三の写真撮影</title>
+  <meta name="description" content="七五三・家族写真・記念撮影のカメラマン。大切な瞬間を自然な笑顔で残します。">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --beige: #f5f0ea;
+      --brown: #6b4f3a;
+      --light-brown: #a0785a;
+      --dark: #2c2c2c;
+      --white: #fff;
+      --gold: #c9a96e;
+    }
+
+    body {
+      font-family: 'Hiragino Mincho ProN', 'Yu Mincho', Georgia, serif;
+      color: var(--dark);
+      background: var(--white);
+    }
+
+    /* ====== HEADER ====== */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid #e8e0d6;
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      letter-spacing: 0.12em;
+      color: var(--brown);
+      font-weight: bold;
+    }
+
+    .logo span {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--light-brown);
+      font-weight: normal;
+      margin-top: 2px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--brown);
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      margin-left: 32px;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--gold); }
+
+    .header-contact {
+      display: inline-block;
+      margin-left: 32px;
+      padding: 8px 20px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .header-contact:hover {
+      background: var(--gold);
+      color: var(--white);
+    }
+
+    /* ====== HERO ====== */
+    .hero {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-slides {
+      position: absolute;
+      inset: 0;
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-slide.active { opacity: 1; }
+
+    /* Placeholder gradient backgrounds simulating photos */
+    .slide-1 { background: linear-gradient(135deg, #d4b896 0%, #b8926a 40%, #8b6245 100%); }
+    .slide-2 { background: linear-gradient(135deg, #c5d4c0 0%, #8aab82 40%, #5a8a52 100%); }
+    .slide-3 { background: linear-gradient(135deg, #d4c5b0 0%, #bfa882 40%, #8a7455 100%); }
+    .slide-4 { background: linear-gradient(135deg, #c8d4d4 0%, #82aaaa 40%, #4a7878 100%); }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.28);
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      color: var(--white);
+    }
+
+    .hero-content h1 {
+      font-size: 2.8rem;
+      letter-spacing: 0.3em;
+      font-weight: normal;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      margin-bottom: 16px;
+    }
+
+    .hero-content p {
+      font-size: 1rem;
+      letter-spacing: 0.22em;
+      opacity: 0.9;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+      margin-bottom: 36px;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      padding: 14px 36px;
+      border: 1px solid rgba(255,255,255,0.85);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      transition: all 0.3s;
+    }
+
+    .hero-btn:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .hero-dots {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .hero-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .hero-dot.active { background: var(--white); }
+
+    /* ====== SECTION COMMON ====== */
+    section { padding: 90px 48px; }
+
+    .section-label {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-label h2 {
+      font-size: 2rem;
+      letter-spacing: 0.2em;
+      color: var(--brown);
+      font-weight: normal;
+      margin-bottom: 8px;
+    }
+
+    .section-label .en {
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      display: block;
+    }
+
+    .section-label .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 16px auto 0;
+    }
+
+    /* ====== MENU NAVIGATION ====== */
+    .plan-nav {
+      background: var(--beige);
+    }
+
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .plan-card {
+      background: var(--white);
+      text-align: center;
+      padding: 40px 20px;
+      text-decoration: none;
+      color: var(--brown);
+      border: 1px solid #e8e0d6;
+      transition: all 0.3s;
+    }
+
+    .plan-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .plan-icon {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .plan-card h3 {
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      font-weight: normal;
+      margin-bottom: 6px;
+    }
+
+    .plan-card .plan-en {
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 0.3em;
+    }
+
+    /* ====== GALLERY ====== */
+    .gallery-section {
+      background: var(--white);
+    }
+
+    .gallery-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 48px;
+      border-bottom: 1px solid #e8e0d6;
+    }
+
+    .gallery-tab {
+      padding: 12px 28px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--light-brown);
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .gallery-tab.active {
+      color: var(--brown);
+      border-bottom-color: var(--gold);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-width: 1100px;
+      margin: 0 auto 40px;
+    }
+
+    .gallery-item {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-item .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover .photo-placeholder {
+      transform: scale(1.05);
+    }
+
+    /* Photo color palettes for gallery */
+    .g1  { background: linear-gradient(135deg, #d4b896, #a07850); }
+    .g2  { background: linear-gradient(145deg, #c8d4c0, #7a9e74); }
+    .g3  { background: linear-gradient(135deg, #d8c8b8, #9a7860); }
+    .g4  { background: linear-gradient(155deg, #c4d0d0, #6a9494); }
+    .g5  { background: linear-gradient(135deg, #d0c4b4, #8a7458); }
+    .g6  { background: linear-gradient(125deg, #c8b8d4, #7a5a9a); }
+    .g7  { background: linear-gradient(135deg, #d4ccb4, #9a9258); }
+    .g8  { background: linear-gradient(145deg, #c4d4c8, #6a9478); }
+    .g9  { background: linear-gradient(135deg, #d4bca8, #9a6c50); }
+
+    .gallery-more {
+      text-align: center;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 14px 48px;
+      border: 1px solid var(--brown);
+      color: var(--brown);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      transition: all 0.3s;
+    }
+
+    .btn-outline:hover {
+      background: var(--brown);
+      color: var(--white);
+    }
+
+    /* ====== PRICING ====== */
+    .pricing-section {
+      background: var(--beige);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background: var(--white);
+      padding: 44px 36px;
+      text-align: center;
+      border: 1px solid #e8e0d6;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--gold);
+    }
+
+    .pricing-card.featured::before {
+      content: '人気';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--white);
+      font-size: 0.7rem;
+      padding: 4px 16px;
+      letter-spacing: 0.1em;
+    }
+
+    .pricing-card h3 {
+      font-size: 1.1rem;
+      letter-spacing: 0.2em;
+      color: var(--brown);
+      font-weight: normal;
+      margin-bottom: 6px;
+    }
+
+    .pricing-card .price-en {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      margin-bottom: 28px;
+      display: block;
+    }
+
+    .price-amount {
+      font-size: 2.4rem;
+      color: var(--brown);
+      margin-bottom: 4px;
+    }
+
+    .price-amount span {
+      font-size: 1rem;
+    }
+
+    .price-note {
+      font-size: 0.72rem;
+      color: #999;
+      margin-bottom: 28px;
+    }
+
+    .price-divider {
+      height: 1px;
+      background: #e8e0d6;
+      margin: 24px 0;
+    }
+
+    .price-features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 32px;
+    }
+
+    .price-features li {
+      font-size: 0.82rem;
+      color: #666;
+      padding: 6px 0;
+      border-bottom: 1px dotted #e8e0d6;
+      letter-spacing: 0.05em;
+    }
+
+    .price-features li::before {
+      content: '✓ ';
+      color: var(--gold);
+    }
+
+    .btn-gold {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--gold);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      transition: background 0.3s;
+    }
+
+    .btn-gold:hover { background: var(--brown); }
+
+    /* ====== PROFILE ====== */
+    .profile-section {
+      background: var(--white);
+    }
+
+    .profile-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .profile-photo {
+      aspect-ratio: 3/4;
+      background: linear-gradient(145deg, #d4c4b4, #9a8272);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 20px;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+    }
+
+    .profile-text h3 {
+      font-size: 1.6rem;
+      letter-spacing: 0.2em;
+      color: var(--brown);
+      font-weight: normal;
+      margin-bottom: 4px;
+    }
+
+    .profile-text .name-en {
+      font-size: 0.8rem;
+      color: var(--gold);
+      letter-spacing: 0.3em;
+      margin-bottom: 28px;
+      display: block;
+    }
+
+    .profile-text p {
+      font-size: 0.9rem;
+      line-height: 2;
+      color: #555;
+      margin-bottom: 16px;
+    }
+
+    .profile-detail {
+      margin-top: 28px;
+      border-top: 1px solid #e8e0d6;
+      padding-top: 24px;
+    }
+
+    .profile-detail dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px 24px;
+      font-size: 0.82rem;
+      color: #555;
+    }
+
+    .profile-detail dt {
+      color: var(--light-brown);
+      letter-spacing: 0.08em;
+    }
+
+    /* ====== VOICE ====== */
+    .voice-section {
+      background: var(--beige);
+    }
+
+    .voice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .voice-card {
+      background: var(--white);
+      padding: 32px 28px;
+      border-top: 3px solid var(--gold);
+    }
+
+    .voice-card .quote {
+      font-size: 2rem;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .voice-card p {
+      font-size: 0.85rem;
+      line-height: 1.9;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .voice-meta {
+      font-size: 0.75rem;
+      color: var(--light-brown);
+      letter-spacing: 0.1em;
+    }
+
+    /* ====== CONTACT ====== */
+    .contact-section {
+      background: var(--brown);
+      text-align: center;
+      padding: 100px 48px;
+    }
+
+    .contact-section .section-label h2 {
+      color: var(--white);
+    }
+
+    .contact-section .section-label .en {
+      color: rgba(255,255,255,0.6);
+    }
+
+    .contact-section .section-label .divider {
+      background: rgba(255,255,255,0.4);
+    }
+
+    .contact-section p {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.9rem;
+      line-height: 2;
+      margin-bottom: 48px;
+      letter-spacing: 0.08em;
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: var(--white);
+      font-size: 0.9rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255,255,255,0.4);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group select option {
+      color: var(--dark);
+      background: var(--white);
+    }
+
+    .form-group textarea { height: 120px; resize: vertical; }
+
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.25em;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.3s;
+      margin-top: 8px;
+    }
+
+    .btn-submit:hover { background: #b8935c; }
+
+    /* ====== FOOTER ====== */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 32px 48px;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+    }
+
+    footer .footer-logo {
+      color: rgba(255,255,255,0.8);
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      margin-bottom: 12px;
+    }
+
+    footer nav {
+      margin-bottom: 20px;
+    }
+
+    footer nav a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      margin: 0 16px;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+    }
+
+    footer nav a:hover { color: var(--gold); }
+
+    /* ====== SCROLL TO TOP ====== */
+    .scroll-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 44px; height: 44px;
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 50;
+    }
+
+    .scroll-top.visible { opacity: 1; }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 900px) {
+      header { padding: 14px 24px; }
+      nav { display: none; }
+      .hero-content h1 { font-size: 1.8rem; }
+      section { padding: 64px 24px; }
+      .plan-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+      .profile-inner { grid-template-columns: 1fr; gap: 40px; }
+      .voice-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      まさる写真工房
+      <span>MASARU PHOTO STUDIO</span>
+    </div>
+    <nav>
+      <a href="#plans">プラン</a>
+      <a href="#gallery">ギャラリー</a>
+      <a href="#pricing">料金</a>
+      <a href="#profile">プロフィール</a>
+      <a href="#voice">お客様の声</a>
+      <a href="#contact" class="header-contact">お問い合わせ</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-slides">
+      <div class="hero-slide slide-1 active"></div>
+      <div class="hero-slide slide-2"></div>
+      <div class="hero-slide slide-3"></div>
+      <div class="hero-slide slide-4"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>大切な瞬間を<br>自然な笑顔で</h1>
+      <p>七五三・家族写真・記念撮影</p>
+      <a href="#gallery" class="hero-btn">GALLERY →</a>
+    </div>
+    <div class="hero-dots">
+      <div class="hero-dot active" onclick="goSlide(0)"></div>
+      <div class="hero-dot" onclick="goSlide(1)"></div>
+      <div class="hero-dot" onclick="goSlide(2)"></div>
+      <div class="hero-dot" onclick="goSlide(3)"></div>
+    </div>
+  </section>
+
+  <!-- PLAN NAV -->
+  <section id="plans" class="plan-nav">
+    <div class="section-label">
+      <h2>撮影プラン</h2>
+      <span class="en">PHOTO PLANS</span>
+      <div class="divider"></div>
+    </div>
+    <div class="plan-grid">
+      <a href="#pricing" class="plan-card">
+        <span class="plan-icon">⛩</span>
+        <h3>七五三</h3>
+        <span class="plan-en">SHICHI-GO-SAN</span>
+      </a>
+      <a href="#pricing" class="plan-card">
+        <span class="plan-icon">👨‍👩‍👧‍👦</span>
+        <h3>家族写真</h3>
+        <span class="plan-en">FAMILY</span>
+      </a>
+      <a href="#pricing" class="plan-card">
+        <span class="plan-icon">🌸</span>
+        <h3>お宮参り</h3>
+        <span class="plan-en">MIYAMAIRI</span>
+      </a>
+      <a href="#pricing" class="plan-card">
+        <span class="plan-icon">🎂</span>
+        <h3>誕生日・記念日</h3>
+        <span class="plan-en">ANNIVERSARY</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="gallery-section">
+    <div class="section-label">
+      <h2>ギャラリー</h2>
+      <span class="en">GALLERY</span>
+      <div class="divider"></div>
+    </div>
+
+    <div class="gallery-tabs">
+      <div class="gallery-tab active" onclick="switchTab(this, 'all')">すべて</div>
+      <div class="gallery-tab" onclick="switchTab(this, 'shichigosan')">七五三</div>
+      <div class="gallery-tab" onclick="switchTab(this, 'family')">家族写真</div>
+      <div class="gallery-tab" onclick="switchTab(this, 'other')">その他</div>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="photo-placeholder g1"></div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder g2"></div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder g3"></div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder g4"></div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder g5"></div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder g6"></div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder g7"></div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder g8"></div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder g9"></div>
+      </div>
+    </div>
+
+    <div class="gallery-more">
+      <a href="#" class="btn-outline">もっと見る</a>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="pricing-section">
+    <div class="section-label">
+      <h2>料金プラン</h2>
+      <span class="en">PRICE & PLAN</span>
+      <div class="divider"></div>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>ライトプラン</h3>
+        <span class="price-en">LIGHT</span>
+        <div class="price-amount">¥<span>18,000</span></div>
+        <div class="price-note">（税込）</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>撮影時間：約1時間</li>
+          <li>データ納品：30枚〜</li>
+          <li>ロケーション1か所</li>
+          <li>Web用データ納品</li>
+        </ul>
+        <a href="#contact" class="btn-outline">お問い合わせ</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <h3>スタンダードプラン</h3>
+        <span class="price-en">STANDARD</span>
+        <div class="price-amount">¥<span>28,000</span></div>
+        <div class="price-note">（税込）</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>撮影時間：約2時間</li>
+          <li>データ納品：60枚〜</li>
+          <li>ロケーション2か所まで</li>
+          <li>高解像度データ納品</li>
+          <li>衣装チェンジ1回可</li>
+        </ul>
+        <a href="#contact" class="btn-gold">お問い合わせ</a>
+      </div>
+
+      <div class="pricing-card">
+        <h3>プレミアムプラン</h3>
+        <span class="price-en">PREMIUM</span>
+        <div class="price-amount">¥<span>48,000</span></div>
+        <div class="price-note">（税込）</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>撮影時間：約3〜4時間</li>
+          <li>データ納品：100枚〜</li>
+          <li>ロケーション複数可</li>
+          <li>高解像度データ納品</li>
+          <li>衣装チェンジ複数回可</li>
+          <li>アルバム制作対応</li>
+        </ul>
+        <a href="#contact" class="btn-outline">お問い合わせ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="profile" class="profile-section">
+    <div class="section-label">
+      <h2>プロフィール</h2>
+      <span class="en">PROFILE</span>
+      <div class="divider"></div>
+    </div>
+
+    <div class="profile-inner">
+      <div class="profile-photo">
+        プロフィール写真
+      </div>
+      <div class="profile-text">
+        <h3>まさる</h3>
+        <span class="name-en">Masaru Takahashi</span>
+        <p>
+          家族の自然な笑顔と、大切な記念日の一瞬を丁寧に残すフォトグラファーです。
+          七五三・お宮参り・家族の記念撮影を専門に、関西エリアを中心に全国で撮影しています。
+        </p>
+        <p>
+          「写真を見るたびに、あの日の幸せな気持ちが蘇る」そんな一枚を目指して、
+          自然体の笑顔を引き出すことを大切にしています。
+        </p>
+        <div class="profile-detail">
+          <dl>
+            <dt>活動エリア</dt>
+            <dd>大阪・京都・神戸・奈良・和歌山（関西中心・全国対応）</dd>
+            <dt>専門</dt>
+            <dd>七五三、家族写真、お宮参り、記念撮影</dd>
+            <dt>SNS</dt>
+            <dd>Instagram / Facebook</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOICE -->
+  <section id="voice" class="voice-section">
+    <div class="section-label">
+      <h2>お客様の声</h2>
+      <span class="en">VOICE</span>
+      <div class="divider"></div>
+    </div>
+
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="quote">"</div>
+        <p>七五三の撮影をお願いしました。子どもが緊張していたのに、カメラマンさんの笑顔で自然とリラックスできて、最高の笑顔を引き出してもらえました！</p>
+        <div class="voice-meta">七五三撮影 ／ Tさまご家族</div>
+      </div>
+      <div class="voice-card">
+        <div class="quote">"</div>
+        <p>家族全員での写真を残したくてお願いしました。普段なかなか揃わない家族の笑顔を、自然な形でたくさん収めていただいて感動しました。</p>
+        <div class="voice-meta">家族写真 ／ Kさまご家族</div>
+      </div>
+      <div class="voice-card">
+        <div class="quote">"</div>
+        <p>お宮参りの撮影をしていただきました。赤ちゃんのペースに合わせてくれて、とても安心してお任せできました。仕上がりも大満足です。</p>
+        <div class="voice-meta">お宮参り撮影 ／ Sさまご家族</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="section-label">
+      <h2>お問い合わせ</h2>
+      <span class="en">CONTACT</span>
+      <div class="divider"></div>
+    </div>
+
+    <p>撮影のご相談・お見積もりは無料です。<br>お気軽にお問い合わせください。</p>
+
+    <form class="contact-form" onsubmit="submitForm(event)">
+      <div class="form-group">
+        <label>お名前 *</label>
+        <input type="text" placeholder="例：山田 花子" required>
+      </div>
+      <div class="form-group">
+        <label>メールアドレス *</label>
+        <input type="email" placeholder="example@mail.com" required>
+      </div>
+      <div class="form-group">
+        <label>撮影プラン</label>
+        <select>
+          <option value="">選択してください</option>
+          <option>七五三</option>
+          <option>家族写真</option>
+          <option>お宮参り</option>
+          <option>誕生日・記念日</option>
+          <option>その他</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>ご希望の撮影日・ご質問など</label>
+        <textarea placeholder="例：11月初旬に七五三の撮影をお願いしたいです。子どもは3歳の女の子です。"></textarea>
+      </div>
+      <button type="submit" class="btn-submit">送信する</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">まさる写真工房</div>
+    <nav>
+      <a href="#plans">プラン</a>
+      <a href="#gallery">ギャラリー</a>
+      <a href="#pricing">料金</a>
+      <a href="#profile">プロフィール</a>
+      <a href="#contact">お問い合わせ</a>
+    </nav>
+    <p>Copyright © 2026 まさる写真工房 All Rights Reserved.</p>
+  </footer>
+
+  <!-- SCROLL TOP -->
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+  <script>
+    // Hero slideshow
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.hero-dot');
+
+    function goSlide(n) {
+      slides[currentSlide].classList.remove('active');
+      dots[currentSlide].classList.remove('active');
+      currentSlide = n;
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+    }
+
+    setInterval(() => {
+      goSlide((currentSlide + 1) % slides.length);
+    }, 4000);
+
+    // Gallery tabs (placeholder)
+    function switchTab(el, category) {
+      document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    // Scroll to top button
+    window.addEventListener('scroll', () => {
+      const btn = document.getElementById('scrollTop');
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const offset = 80;
+          window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Contact form
+    function submitForm(e) {
+      e.preventDefault();
+      alert('お問い合わせありがとうございます。\n2〜3営業日以内にご連絡いたします。');
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>

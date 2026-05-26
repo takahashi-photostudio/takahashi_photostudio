@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>高橋写真店 | 七五三・家族写真の出張撮影</title>
+  <meta name="description" content="七五三・家族写真・お宮参りの出張撮影カメラマン。自然な笑顔を大切に、大阪・関西を中心に全国対応。">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== HERO ===== */
+    .hero {
+      height: 75vh;
+      min-height: 480px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-slides { position: absolute; inset: 0; }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.4s ease-in-out;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-slide.active { opacity: 1; }
+
+    .hs1 { background-image: url("hero1.jpg"); background-color: #ffffff; }
+    .hs2 { background-image: url("hero2.jpg"); background-color: #ffffff; }
+    .hs3 { background-image: url("hero3.jpg"); background-color: #ffffff; }
+    .hs4 { background-image: url("hero4.jpg"); background-color: #ffffff; }
+    .hs5 { background-image: url("hero5.jpg"); background-color: #ffffff; }
+
+    /* キャプション（左下） */
+    .hero-captions {
+      position: absolute;
+      bottom: 48px;
+      left: 48px;
+      z-index: 10;
+    }
+
+    .hero-caption {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .hero-caption.active { display: flex; }
+
+    .hc-tag {
+      display: inline-block;
+      background: var(--green);
+      color: #fff;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      padding: 3px 12px;
+      border-radius: 10px;
+      width: fit-content;
+    }
+
+    .hc-title {
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+    }
+
+    .hc-desc {
+      color: rgba(255,255,255,0.82);
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* 矢印 */
+    .hero-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      width: 48px;
+      height: 48px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.45);
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-arrow:hover { background: rgba(255,255,255,0.3); }
+    .hero-prev { left: 24px; }
+    .hero-next { right: 24px; }
+
+    /* カウンター */
+    .hero-counter {
+      position: absolute;
+      bottom: 52px;
+      right: 48px;
+      z-index: 10;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: transparent;
+    }
+
+    .hero-btn-primary {
+      background: var(--green);
+      color: #fff;
+      padding: 14px 40px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      transition: background 0.25s;
+      display: inline-block;
+    }
+
+    .hero-btn-primary:hover { background: var(--green-dark); }
+
+    .hero-dots {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .hero-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.45);
+      cursor: pointer;
+      transition: background 0.3s;
+      border: none;
+    }
+
+    .hero-dot.active { background: #fff; }
+
+    /* ===== SUMMARY CARDS ===== */
+    .summary-section {
+      background: var(--green-bg);
+      padding: 80px 48px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .summary-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .summary-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+    }
+
+    .summary-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+    }
+
+    .st1 { background: linear-gradient(135deg, #e8e8e8, #bbbbbb); }
+    .st2 { background: linear-gradient(135deg, #e0e0e0, #b0b0b0); }
+    .st3 { background: linear-gradient(135deg, #ececec, #c0c0c0); }
+    .st4 { background: linear-gradient(135deg, #e4e4e4, #b8b8b8); }
+    .st5 { background: linear-gradient(135deg, #dedede, #aaaaaa); }
+
+    .summary-label {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: var(--green);
+      color: #fff;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      padding: 4px 12px;
+      border-radius: 12px;
+    }
+
+    .summary-body {
+      padding: 24px 28px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .summary-body h3 {
+      font-size: 1.1rem;
+      color: var(--green-dark);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .summary-body p {
+      font-size: 0.83rem;
+      color: var(--gray);
+      line-height: 1.75;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .summary-more {
+      font-size: 0.78rem;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      font-weight: bold;
+    }
+
+    /* ===== HERO CATCH ===== */
+    .hero-catch {
+      background: var(--white);
+      text-align: center;
+      padding: 56px 24px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-catch h1 {
+      font-size: 1.9rem;
+      color: var(--dark);
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .hero-catch p {
+      font-size: 0.95rem;
+      color: var(--gray);
+      letter-spacing: 0.1em;
+      margin-bottom: 32px;
+    }
+
+    .hero-catch-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-btn-outline-dark {
+      background: transparent;
+      color: var(--green-dark);
+      border: 2px solid var(--green);
+      padding: 14px 40px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      transition: all 0.25s;
+    }
+
+    .hero-btn-outline-dark:hover {
+      background: var(--green);
+      color: #fff;
+    }
+
+    /* ===== APPEAL ===== */
+    .appeal-section {
+      padding: 80px 48px;
+      background: var(--white);
+    }
+
+    .appeal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .appeal-item .illust {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    .appeal-item h3 {
+      font-size: 1rem;
+      color: var(--green-dark);
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .appeal-item p {
+      font-size: 0.82rem;
+      color: var(--gray);
+      line-height: 1.8;
+    }
+
+    /* ===== CTA ===== */
+    .cta-section {
+      background: linear-gradient(135deg, var(--green-dark), var(--green));
+      color: #fff;
+      text-align: center;
+      padding: 80px 24px;
+    }
+
+    .cta-section h2 {
+      font-size: 1.8rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .cta-section p {
+      font-size: 0.9rem;
+      opacity: 0.88;
+      margin-bottom: 36px;
+      letter-spacing: 0.08em;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn-white {
+      background: #fff;
+      color: var(--green-dark);
+      padding: 14px 40px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+
+    .cta-btn-white:hover { opacity: 0.9; }
+
+    .cta-btn-border {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.7);
+      padding: 14px 40px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      transition: background 0.2s;
+    }
+
+    .cta-btn-border:hover { background: rgba(255,255,255,0.15); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 860px) {
+      .hero-content h1 { font-size: 2rem; }
+      .summary-section { padding: 56px 20px; }
+      .summary-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .appeal-section { padding: 56px 20px; }
+      .appeal-grid { grid-template-columns: 1fr; gap: 32px; max-width: 400px; }
+    }
+  </style>
+</head>
+<body class="page-body">
+
+  <!-- HEADER -->
+  <header>
+    <a href="index.html" class="logo">
+      <span class="logo-main">高橋写真店</span>
+      <span class="logo-sub">TAKAHASHI PHOTO STUDIO</span>
+    </a>
+    <nav class="header-nav">
+      <a href="works.html">作例</a>
+      <a href="menu.html">メニュー</a>
+      <a href="profile.html">プロフィール</a>
+      <a href="voice.html">お客様の声</a>
+      <a href="contact.html" class="nav-contact">お問い合わせ</a>
+    </nav>
+  </header>
+
+  <!-- HERO + WORKS SLIDER -->
+  <section class="hero">
+
+    <!-- 背景スライド（作例写真） -->
+    <div class="hero-slides">
+      <div class="hero-slide hs1 active"></div>
+      <div class="hero-slide hs2"></div>
+      <div class="hero-slide hs3"></div>
+      <div class="hero-slide hs4"></div>
+      <div class="hero-slide hs5"></div>
+    </div>
+    <div class="hero-overlay"></div>
+
+    <!-- 左右矢印 -->
+    <button class="hero-arrow hero-prev" onclick="goSlide((cur - 1 + 5) % 5)">&#8592;</button>
+    <button class="hero-arrow hero-next" onclick="goSlide((cur + 1) % 5)">&#8594;</button>
+
+    <!-- カウンター -->
+    <div class="hero-counter"><span id="heroCur">1</span> / 5</div>
+
+    <!-- ドット -->
+    <div class="hero-dots">
+      <button class="hero-dot active" onclick="goSlide(0)"></button>
+      <button class="hero-dot" onclick="goSlide(1)"></button>
+      <button class="hero-dot" onclick="goSlide(2)"></button>
+      <button class="hero-dot" onclick="goSlide(3)"></button>
+      <button class="hero-dot" onclick="goSlide(4)"></button>
+    </div>
+
+  </section>
+
+  <!-- HERO CATCH COPY -->
+  <section class="hero-catch">
+    <h1>大切な記念日を ずっと残せる一枚に</h1>
+    <p>自然な笑顔を大切に。関西を中心に全国出張対応。</p>
+    <div class="hero-catch-btns">
+      <a href="works.html" class="hero-btn-primary">作例を見る</a>
+      <a href="contact.html" class="hero-btn-outline-dark">無料相談する</a>
+    </div>
+  </section>
+
+  <!-- APPEAL -->
+  <section class="appeal-section">
+    <div class="appeal-grid">
+      <div class="appeal-item">
+        <!-- カメラ＋笑顔イラスト -->
+        <svg class="illust" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="48" cy="48" r="44" fill="#f0f0f0"/>
+          <!-- カメラ本体 -->
+          <rect x="20" y="36" width="56" height="36" rx="6" fill="#cccccc" stroke="#555555" stroke-width="2.5"/>
+          <!-- レンズ外枠 -->
+          <circle cx="48" cy="54" r="13" fill="white" stroke="#555555" stroke-width="2.5"/>
+          <!-- レンズ内 -->
+          <circle cx="48" cy="54" r="8" fill="#e0e0e0" stroke="#555555" stroke-width="2"/>
+          <!-- レンズ中心 -->
+          <circle cx="48" cy="54" r="3.5" fill="#555555"/>
+          <!-- ファインダー -->
+          <rect x="30" y="28" width="14" height="9" rx="3" fill="#cccccc" stroke="#555555" stroke-width="2"/>
+          <!-- シャッターボタン -->
+          <circle cx="66" cy="32" r="4" fill="#999999" stroke="#555555" stroke-width="2"/>
+          <!-- スマイル -->
+          <path d="M40 48 Q44 44 48 48" stroke="#555555" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+        </svg>
+        <h3>自然な笑顔を引き出す</h3>
+        <p>お子さまのペースに合わせて、緊張をほぐしながら撮影。リラックスした自然な表情を大切にします。</p>
+      </div>
+
+      <div class="appeal-item">
+        <!-- 地図＋ピンイラスト -->
+        <svg class="illust" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="48" cy="48" r="44" fill="#f0f0f0"/>
+          <!-- 地図の台紙 -->
+          <rect x="16" y="22" width="64" height="52" rx="5" fill="white" stroke="#555555" stroke-width="2"/>
+          <!-- 道路の線 -->
+          <path d="M28 46 Q42 38 56 50 Q66 58 72 50" stroke="#cccccc" stroke-width="3" stroke-linecap="round" fill="none"/>
+          <path d="M24 60 Q38 56 52 62 Q62 66 72 60" stroke="#cccccc" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <!-- ピン -->
+          <path d="M48 24 C42 24 37 29 37 35 C37 43 48 56 48 56 C48 56 59 43 59 35 C59 29 54 24 48 24Z" fill="#999999" stroke="#555555" stroke-width="2"/>
+          <circle cx="48" cy="35" r="5" fill="white" stroke="#555555" stroke-width="1.5"/>
+          <!-- サブピン（小） -->
+          <path d="M28 40 C25.5 40 23 42.2 23 44.8 C23 48.2 28 54 28 54 C28 54 33 48.2 33 44.8 C33 42.2 30.5 40 28 40Z" fill="#e0e0e0" stroke="#555555" stroke-width="1.5"/>
+          <circle cx="28" cy="44.5" r="3" fill="white" stroke="#555555" stroke-width="1"/>
+        </svg>
+        <h3>全国出張対応</h3>
+        <p>大阪・京都・神戸を中心に関西全域、そして全国各地への出張撮影に対応しています。</p>
+      </div>
+
+      <div class="appeal-item">
+        <!-- 写真＋星イラスト -->
+        <svg class="illust" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="48" cy="48" r="44" fill="#f0f0f0"/>
+          <!-- 写真フレーム背面 -->
+          <rect x="28" y="30" width="44" height="36" rx="4" fill="#e0e0e0" stroke="#555555" stroke-width="2" transform="rotate(-6 50 48)"/>
+          <!-- 写真フレーム前面 -->
+          <rect x="22" y="28" width="44" height="36" rx="4" fill="white" stroke="#555555" stroke-width="2.5"/>
+          <!-- 写真の中の風景（山） -->
+          <rect x="24" y="30" width="40" height="32" rx="2" fill="#f0f0f0"/>
+          <path d="M24 56 L35 40 L44 50 L52 42 L62 56Z" fill="#cccccc"/>
+          <circle cx="54" cy="37" r="5" fill="#fff9c4" stroke="#f0c040" stroke-width="1.5"/>
+          <!-- 星 -->
+          <path d="M74 22 L75.5 26.5 L80 26.5 L76.5 29.5 L78 34 L74 31 L70 34 L71.5 29.5 L68 26.5 L72.5 26.5 Z" fill="#f0c040"/>
+          <!-- 小さい星 -->
+          <path d="M22 22 L23 24.8 L26 24.8 L23.7 26.6 L24.7 29.4 L22 27.5 L19.3 29.4 L20.3 26.6 L18 24.8 L21 24.8 Z" fill="#f0c040" opacity="0.7"/>
+        </svg>
+        <h3>高品質なデータ納品</h3>
+        <p>撮影後は丁寧に現像・レタッチ。高解像度データをオンラインで納品するので、すぐに使えます。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUMMARY SECTION -->
+  <section class="summary-section">
+    <div class="section-label">
+      <h2>サイトのご案内</h2>
+      <span class="en">CONTENTS</span>
+      <div class="divider"></div>
+    </div>
+
+    <div class="summary-grid">
+
+      <!-- メニュー -->
+      <a href="menu.html" class="summary-card">
+        <div class="summary-thumb st1">
+          <span class="summary-label">MENU</span>
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:72px;height:72px;">
+            <!-- メモ帳 -->
+            <rect x="14" y="10" width="52" height="60" rx="5" fill="white" stroke="#555555" stroke-width="2.5"/>
+            <!-- バインダー上部 -->
+            <rect x="28" y="6" width="24" height="10" rx="3" fill="#cccccc" stroke="#555555" stroke-width="2"/>
+            <!-- 行線 -->
+            <line x1="24" y1="30" x2="56" y2="30" stroke="#e0e0e0" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="24" y1="40" x2="56" y2="40" stroke="#e0e0e0" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="24" y1="50" x2="48" y2="50" stroke="#e0e0e0" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- チェックマーク -->
+            <circle cx="20" cy="30" r="4" fill="#999999"/>
+            <path d="M18 30 L20 32 L23 28" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="20" cy="40" r="4" fill="#999999"/>
+            <path d="M18 40 L20 42 L23 38" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="20" cy="50" r="4" fill="#cccccc" stroke="#555555" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="summary-body">
+          <h3>メニュー・料金</h3>
+          <p>撮影プランと料金をご確認いただけます。七五三・家族写真・お宮参りなど各プランをご用意しています。</p>
+          <span class="summary-more">メニューを見る →</span>
+        </div>
+      </a>
+
+      <!-- 作例 -->
+      <a href="works.html" class="summary-card">
+        <div class="summary-thumb st2">
+          <span class="summary-label">WORKS</span>
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:72px;height:72px;">
+            <!-- メインフォト -->
+            <rect x="8" y="18" width="46" height="36" rx="4" fill="white" stroke="#555555" stroke-width="2.5"/>
+            <rect x="10" y="20" width="42" height="32" rx="2" fill="#f0f0f0"/>
+            <!-- 空・山 -->
+            <rect x="10" y="20" width="42" height="14" rx="2" fill="#e0e0e0"/>
+            <circle cx="38" cy="26" r="5" fill="#fff9e0" stroke="#f0c040" stroke-width="1.2"/>
+            <path d="M10 46 L20 34 L30 42 L40 30 L52 46Z" fill="#999999"/>
+            <!-- サブフォト（重なり） -->
+            <rect x="34" y="38" width="36" height="28" rx="4" fill="white" stroke="#555555" stroke-width="2"/>
+            <rect x="36" y="40" width="32" height="24" rx="2" fill="#f0f0f0"/>
+            <path d="M36 58 L44 48 L52 54 L58 46 L68 58Z" fill="#cccccc"/>
+            <!-- 人物シルエット -->
+            <circle cx="44" cy="46" r="3" fill="#999999"/>
+          </svg>
+        </div>
+        <div class="summary-body">
+          <h3>作例</h3>
+          <p>七五三・家族写真・お宮参りなど、実際の撮影作品をご覧いただけます。雰囲気の参考にどうぞ。</p>
+          <span class="summary-more">作例を見る →</span>
+        </div>
+      </a>
+
+      <!-- お客様の声 -->
+      <a href="voice.html" class="summary-card">
+        <div class="summary-thumb st3">
+          <span class="summary-label">VOICE</span>
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:72px;height:72px;">
+            <!-- 吹き出し1（大） -->
+            <rect x="8" y="10" width="48" height="32" rx="8" fill="white" stroke="#555555" stroke-width="2.5"/>
+            <path d="M20 42 L14 52 L28 42Z" fill="white" stroke="#555555" stroke-width="2" stroke-linejoin="round"/>
+            <!-- ドット -->
+            <circle cx="22" cy="26" r="3.5" fill="#999999"/>
+            <circle cx="32" cy="26" r="3.5" fill="#999999"/>
+            <circle cx="42" cy="26" r="3.5" fill="#999999"/>
+            <!-- 吹き出し2（小・右） -->
+            <rect x="32" y="44" width="38" height="26" rx="7" fill="#e0e0e0" stroke="#555555" stroke-width="2"/>
+            <path d="M36 44 L30 36 L44 44Z" fill="#e0e0e0" stroke="#555555" stroke-width="1.5" stroke-linejoin="round"/>
+            <!-- 星 -->
+            <path d="M44 54 L45.2 57.6 L49 57.6 L46 59.8 L47.2 63.4 L44 61.2 L40.8 63.4 L42 59.8 L39 57.6 L42.8 57.6Z" fill="#f0c040"/>
+            <path d="M56 54 L57.2 57.6 L61 57.6 L58 59.8 L59.2 63.4 L56 61.2 L52.8 63.4 L54 59.8 L51 57.6 L54.8 57.6Z" fill="#f0c040"/>
+          </svg>
+        </div>
+        <div class="summary-body">
+          <h3>お客様の声</h3>
+          <p>実際にご依頼いただいたお客様のご感想をご紹介します。撮影の参考にしてみてください。</p>
+          <span class="summary-more">お客様の声を見る →</span>
+        </div>
+      </a>
+
+      <!-- プロフィール -->
+      <a href="profile.html" class="summary-card">
+        <div class="summary-thumb st4">
+          <span class="summary-label">PROFILE</span>
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:72px;height:72px;">
+            <!-- 人物アイコン背景 -->
+            <circle cx="40" cy="40" r="32" fill="white" stroke="#555555" stroke-width="2.5"/>
+            <!-- 頭 -->
+            <circle cx="40" cy="28" r="12" fill="#cccccc" stroke="#555555" stroke-width="2"/>
+            <!-- 顔パーツ -->
+            <circle cx="36" cy="27" r="1.8" fill="#555555"/>
+            <circle cx="44" cy="27" r="1.8" fill="#555555"/>
+            <path d="M36 32 Q40 36 44 32" stroke="#555555" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <!-- カメラ（首から下げる） -->
+            <rect x="34" y="38" width="12" height="9" rx="3" fill="#999999" stroke="#555555" stroke-width="1.5"/>
+            <circle cx="40" cy="42" r="2.5" fill="white" stroke="#555555" stroke-width="1"/>
+            <!-- 体 -->
+            <path d="M18 70 Q18 52 40 52 Q62 52 62 70" fill="#e0e0e0" stroke="#555555" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="summary-body">
+          <h3>プロフィール</h3>
+          <p>カメラマンの自己紹介です。撮影への想いや経歴をご覧ください。</p>
+          <span class="summary-more">プロフィールを見る →</span>
+        </div>
+      </a>
+
+      <!-- お問い合わせ -->
+      <a href="contact.html" class="summary-card">
+        <div class="summary-thumb st5">
+          <span class="summary-label">CONTACT</span>
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:72px;height:72px;">
+            <!-- 封筒本体 -->
+            <rect x="8" y="20" width="64" height="44" rx="6" fill="white" stroke="#555555" stroke-width="2.5"/>
+            <!-- 封筒フラップ（V字） -->
+            <path d="M8 26 L40 50 L72 26" stroke="#555555" stroke-width="2.5" stroke-linejoin="round" fill="none"/>
+            <!-- 封筒底の折線 -->
+            <path d="M8 64 L28 44" stroke="#e0e0e0" stroke-width="2" stroke-linecap="round"/>
+            <path d="M72 64 L52 44" stroke="#e0e0e0" stroke-width="2" stroke-linecap="round"/>
+            <!-- ハートマーク（封蝋風） -->
+            <circle cx="40" cy="42" r="10" fill="#999999" stroke="#555555" stroke-width="1.5"/>
+            <path d="M40 48 C40 48 32 42 32 37 C32 34 34.5 32 37 33 C38.5 33.5 40 35 40 35 C40 35 41.5 33.5 43 33 C45.5 32 48 34 48 37 C48 42 40 48 40 48Z" fill="white"/>
+          </svg>
+        </div>
+        <div class="summary-body">
+          <h3>お問い合わせ</h3>
+          <p>撮影のご相談・お見積もりは無料です。お気軽にお問い合わせください。2〜3営業日以内にご返信します。</p>
+          <span class="summary-more">お問い合わせする →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>まずはお気軽にご相談ください</h2>
+    <p>お見積もり・ご相談は無料です。撮影日・場所・ご要望などをお聞かせください。</p>
+    <div class="cta-btns">
+      <a href="contact.html" class="cta-btn-white">無料で相談する</a>
+      <a href="works.html" class="cta-btn-border">作例を見る</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">高橋写真店</div>
+    <nav class="footer-nav">
+      <a href="works.html">作例</a>
+      <a href="menu.html">メニュー</a>
+      <a href="profile.html">プロフィール</a>
+      <a href="voice.html">お客様の声</a>
+      <a href="contact.html">お問い合わせ</a>
+    </nav>
+    <p class="footer-copy">Copyright © 2026 高橋写真店 All Rights Reserved.</p>
+  </footer>
+
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+
+  <script>
+    // ===== Hero + Works Slideshow =====
+    let cur = 0;
+    const TOTAL = 5;
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots   = document.querySelectorAll('.hero-dot');
+
+    function goSlide(n) {
+      slides[cur].classList.remove('active');
+      dots[cur].classList.remove('active');
+      cur = (n + TOTAL) % TOTAL;
+      slides[cur].classList.add('active');
+      dots[cur].classList.add('active');
+      captions[cur].classList.add('active');
+      document.getElementById('heroCur').textContent = cur + 1;
+    }
+
+    setInterval(() => goSlide(cur + 1), 5000);
+
+    window.addEventListener('scroll', () => {
+      document.getElementById('scrollTop').classList.toggle('visible', scrollY > 400);
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); window.scrollTo({ top: t.offsetTop - 70, behavior: 'smooth' }); }
+      });
+    });
+  </script>
+</body>
+</html>

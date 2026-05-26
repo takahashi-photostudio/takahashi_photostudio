@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お客様の声 | 高橋写真店</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .voice-intro {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 56px;
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.9;
+    }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto 72px;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-align: center;
+      padding: 28px 16px;
+    }
+
+    .stat-num {
+      font-size: 2.4rem;
+      font-weight: bold;
+      color: var(--green-dark);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-num span { font-size: 1rem; }
+    .stat-label { font-size: 0.78rem; color: var(--gray); letter-spacing: 0.05em; }
+
+    /* Voice Cards */
+    .voice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .voice-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 32px 28px;
+      box-shadow: 0 2px 16px rgba(42,122,82,0.07);
+      position: relative;
+      border-top: 3px solid var(--green-light);
+    }
+
+    .vc-stars {
+      color: #f0b429;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+
+    .vc-quote {
+      font-size: 3rem;
+      color: var(--green-pale);
+      line-height: 0.5;
+      margin-bottom: 12px;
+      font-family: Georgia, serif;
+    }
+
+    .vc-text {
+      font-size: 0.88rem;
+      color: #444;
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+
+    .vc-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .vc-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .vc-info { flex: 1; }
+
+    .vc-name {
+      font-size: 0.88rem;
+      color: var(--green-dark);
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
+
+    .vc-detail {
+      font-size: 0.72rem;
+      color: var(--gray);
+      margin-top: 2px;
+    }
+
+    .vc-tag {
+      font-size: 0.65rem;
+      background: var(--green-pale);
+      color: var(--green-dark);
+      padding: 3px 10px;
+      border-radius: 10px;
+      letter-spacing: 0.1em;
+    }
+
+    /* Featured large voice */
+    .voice-featured {
+      background: linear-gradient(135deg, var(--green-dark), var(--green));
+      border-radius: 16px;
+      padding: 56px;
+      color: #fff;
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto 64px;
+    }
+
+    .voice-featured .vc-stars { color: #f0e080; font-size: 1.1rem; }
+
+    .voice-featured blockquote {
+      font-size: 1.15rem;
+      line-height: 2;
+      margin: 24px 0;
+      opacity: 0.95;
+      font-style: normal;
+    }
+
+    .voice-featured .vc-meta {
+      justify-content: center;
+      border-top-color: rgba(255,255,255,0.3);
+    }
+
+    .voice-featured .vc-name { color: #fff; }
+    .voice-featured .vc-detail { color: rgba(255,255,255,0.7); }
+
+    .voice-featured .vc-avatar {
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* Carousel */
+    .carousel-wrap {
+      position: relative;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .voice-carousel {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 12px;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .voice-carousel::-webkit-scrollbar { display: none; }
+
+    .voice-carousel .voice-card {
+      flex: 0 0 calc(33.333% - 16px);
+      scroll-snap-align: start;
+      min-width: 260px;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 42%;
+      transform: translateY(-50%);
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.6rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+      transition: background 0.2s;
+      z-index: 5;
+    }
+
+    .carousel-btn:hover { background: var(--green-dark); }
+    .carousel-btn.prev { left: 0; }
+    .carousel-btn.next { right: 0; }
+
+    .carousel-count {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.78rem;
+      color: var(--gray);
+    }
+
+    @media (max-width: 860px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .voice-grid { grid-template-columns: 1fr; max-width: 480px; }
+      .voice-featured { padding: 36px 24px; }
+      .voice-featured blockquote { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body class="page-body">
+
+  <header>
+    <a href="index.html" class="logo">
+      <span class="logo-main">高橋写真店</span>
+      <span class="logo-sub">TAKAHASHI PHOTO STUDIO</span>
+    </a>
+    <nav class="header-nav">
+      <a href="works.html">作例</a>
+      <a href="menu.html">メニュー</a>
+      <a href="profile.html">プロフィール</a>
+      <a href="voice.html" class="active">お客様の声</a>
+      <a href="contact.html" class="nav-contact">お問い合わせ</a>
+    </nav>
+  </header>
+
+  <div class="page-hero">
+    <h1>お客様の声</h1>
+    <span class="page-hero-en">CUSTOMER VOICE</span>
+  </div>
+
+  <section class="section">
+    <div class="section-label">
+      <h2>ご利用いただいたお客様から</h2>
+      <span class="en">REVIEWS</span>
+      <div class="divider"></div>
+    </div>
+
+    <p class="voice-intro">実際に撮影をご依頼いただいたお客様のご感想です。みなさまの温かいお言葉が、次の撮影への励みになっています。</p>
+
+    <!-- Featured -->
+    <div class="voice-featured">
+      <div class="vc-stars">★★★★★</div>
+      <blockquote>
+        「両親の80歳の記念で家族写真をお願いしました。口コミ通り、とても話しやすい方で、撮影時間もとても楽しかったです！高橋さんにお願いして本当に良かったです！撮ってすぐ確認で写真を見せていただき、とても良い写真でした。とてもいい記念になりました。本当にありがとうございました！」
+      </blockquote>
+      <div class="vc-meta">
+        <div class="vc-info">
+          <div class="vc-detail">家族写真 / 2025年12月</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Voice Carousel -->
+    <div class="carousel-wrap">
+      <button class="carousel-btn prev" onclick="scrollCarousel(-1)">&#8249;</button>
+      <div class="voice-carousel" id="voiceCarousel">
+
+        <!-- 1 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">遠くから来ていただきました。沢山写真や動画をとってくださいました。写真届くのが楽しみです。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">ペット / 2026年2月</div></div>
+            <span class="vc-tag">ペット</span>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">お時間ギリギリまでいろんなパターンのお写真撮っていただいて、ありがとうございました。写真のパターンの提案も自分たちで考えていなかったので、とてもありがたかったです。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">お宮参り / 2026年1月</div></div>
+            <span class="vc-tag">お宮参り</span>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">気さくな方でした。ポージングの提案も沢山して頂きありがとうございました。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">お宮参り / 2026年1月</div></div>
+            <span class="vc-tag">お宮参り</span>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">七五三の写真を撮っていただきました。当日は撮影に使う和傘を用意してくださいました。娘はカメラを向けられているのと慣れない着物で緊張ぎみでしたが、納品していただいた写真は自然体でとても良い笑顔の写真がいっぱいでした。また機会があれば、お願いしたいです。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">七五三 / 2025年12月</div></div>
+            <span class="vc-tag">七五三</span>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">とても親切にご対応いただきました。ぜひまたお願いさせていただければと思います。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">ニューボーンフォト / 2025年11月</div></div>
+            <span class="vc-tag">ニューボーン</span>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">出張写真は初めてで、３人目のお宮参りで撮影して頂きました。子供にも自然に話かけてくれて、自分達では撮れない家族写真を時間目一杯沢山撮って頂き良かったです。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">お宮参り / 2025年10月</div></div>
+            <span class="vc-tag">お宮参り</span>
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">下の子のお宮参りで家族写真の撮影をお願いしました。とても気さくな方で、2歳の上の子も緊張せず、撮影後は「楽しかった！」と言っていました。納品された写真は自然な温かい雰囲気に仕上がっていました。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">お宮参り / 2025年9月</div></div>
+            <span class="vc-tag">お宮参り</span>
+          </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">先日は、遠方にかかわらず快くお引き受けいただきありがとうございました！たくさんのデータを納めていただいておかげさまで良い記念となりました。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">お宮参り / 2025年4月</div></div>
+            <span class="vc-tag">お宮参り</span>
+          </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">優しい雰囲気の写真をたくさん撮っていただきました。構図が決まっているものから、自然体の写真まで、どのお写真もとても素敵でした。ありがとうございました。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">七五三 / 2024年12月</div></div>
+            <span class="vc-tag">七五三</span>
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">お宮参りで依頼させて頂きました！30分も遅れたにも関わらず、快く笑顔で対応して下さりありがとうございました。笑顔で最後まで綺麗な写真を撮ってくださいました。本当にいい日になりました。ありがとうございました。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">お宮参り / 2024年12月</div></div>
+            <span class="vc-tag">お宮参り</span>
+          </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">今回はありがとうございました！トータルで400枚以上納品していただき、非常に嬉しいです！！写り方も提案していただけたり、私からの要望にも応えていただけて、ありがたかったです。また次は七五三もお願いしたいです。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">お宮参り / 2024年11月</div></div>
+            <span class="vc-tag">お宮参り</span>
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">とても気さくな方で何枚も撮ってくださり、撮りたいショットないですかとこちらの希望も聞いてくださり助かりました。途中で息子がぐずった時も気長に待ってくださり本当にありがたかったです。自分たちでは撮れない綺麗な写真が撮れて本当にお願いしてよかったです。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">お宮参り / 2024年10月</div></div>
+            <span class="vc-tag">お宮参り</span>
+          </div>
+        </div>
+
+        <!-- 13 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">とても綺麗なお写真で大変満足です！足元の悪い日に遠い所から本当にありがとうございました！！</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">お宮参り / 2024年6月</div></div>
+            <span class="vc-tag">お宮参り</span>
+          </div>
+        </div>
+
+        <!-- 14 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">お宮参りでの家族写真を撮っていただきました。高橋さんが気さくで優しい方でしたので安心しました。撮影場所や構成も提案してくださったり、こちらの希望の構成も撮っていただきました。仕上がった写真はどれもいい表情をした素敵な写真ばかりで大満足しています。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">お宮参り / 2024年4月</div></div>
+            <span class="vc-tag">お宮参り</span>
+          </div>
+        </div>
+
+        <!-- 15 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">娘のぐずぐずで予定の1時間を無理言って撮影時間を短くしてもらいましたがとても良い写真ばかりでよかったです。他のフォトグラファーさんよりも値段もお手頃でたくさん写真も撮ってもらえたのですごく満足してます。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">お宮参り / 2024年2月</div></div>
+            <span class="vc-tag">お宮参り</span>
+          </div>
+        </div>
+
+        <!-- 16 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">お世辞ではなく本当に髙橋さんにお願いしてよかったと思います。撮影スタート時、家族全員とても緊張していましたが会話や雰囲気でリラックスでき、とても楽しく思い出に残る時間を過ごせました。また機会がありましたら、お願いしたいと思います。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">家族写真 / 2024年2月</div></div>
+            <span class="vc-tag">家族写真</span>
+          </div>
+        </div>
+
+        <!-- 17 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">とっても素敵な家族写真を撮って頂けました！強風がひどく子供達の機嫌もあまり良く無い状況での撮影でしたが、最善を尽くして撮って頂けたので大満足でした！また、記念日など是非お願いしようと思います。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">家族写真 / 2023年12月</div></div>
+            <span class="vc-tag">家族写真</span>
+          </div>
+        </div>
+
+        <!-- 18 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">家族写真の撮影をお願いしました。事前の打ち合わせから当日までスムーズに対応していただき安心出来ました。当日は素敵な撮影場所を提案して下さったり、撮影も楽しく出来ました。また機会があれば是非宜しくお願いいたします。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">家族写真 / 2023年11月</div></div>
+            <span class="vc-tag">家族写真</span>
+          </div>
+        </div>
+
+        <!-- 19 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">とても素敵な撮影をしていただきました。たっぷり1時間写真を撮っていただき、データを全て送って下さりました。数百枚分です！！とてもお話しやすい方で、安心して撮影も出来ました。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">家族写真 / 2023年9月</div></div>
+            <span class="vc-tag">家族写真</span>
+          </div>
+        </div>
+
+        <!-- 20 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">暖かい人柄で家族の自然な雰囲気を引き出してくれます。リラックスして楽しく撮影ができました。毎回撮ってもらった写真を祖父母に見せるのが楽しみです。これからも定期的にお願いして家族の思い出を残していきたいと思います。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">家族写真 / 2023年9月</div></div>
+            <span class="vc-tag">家族写真</span>
+          </div>
+        </div>
+
+        <!-- 21 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">2回撮影して頂きましたが、すごい話しやすくて楽しく撮影ができています。枚数はかなり多いのですが、レタッチも丁寧にして下さっていてお気に入りの写真が多くあります。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">家族写真 / 2023年9月</div></div>
+            <span class="vc-tag">家族写真</span>
+          </div>
+        </div>
+
+        <!-- 22 -->
+        <div class="voice-card">
+          <div class="vc-stars">★★★★★</div>
+          <div class="vc-quote">"</div>
+          <p class="vc-text">この度はお世話になり、ありがとうございました。事前の細やかなお打ち合わせ、頂いたお写真も大大大満足です。またお願い致します。</p>
+          <div class="vc-meta">
+            <div class="vc-info"><div class="vc-detail">家族写真 / 2023年9月</div></div>
+            <span class="vc-tag">家族写真</span>
+          </div>
+        </div>
+
+      </div><!-- /voice-carousel -->
+      <button class="carousel-btn next" onclick="scrollCarousel(1)">&#8250;</button>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:var(--green-bg);padding:64px 24px;text-align:center;">
+    <h2 style="font-size:1.5rem;color:var(--green-dark);margin-bottom:12px;letter-spacing:0.1em;">あなたも大切な記念日を残しませんか？</h2>
+    <p style="color:var(--gray);font-size:0.9rem;margin-bottom:32px;">お見積もり・ご相談は無料です。</p>
+    <a href="contact.html" class="btn btn-green">お問い合わせはこちら</a>
+  </section>
+
+  <footer>
+    <div class="footer-logo">高橋写真店</div>
+    <nav class="footer-nav">
+      <a href="index.html">トップ</a>
+      <a href="works.html">作例</a>
+      <a href="menu.html">メニュー</a>
+      <a href="profile.html">プロフィール</a>
+      <a href="voice.html">お客様の声</a>
+      <a href="contact.html">お問い合わせ</a>
+    </nav>
+    <p class="footer-copy">Copyright © 2026 高橋写真店 All Rights Reserved.</p>
+  </footer>
+
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('scrollTop').classList.toggle('visible', scrollY > 300);
+    });
+
+    function scrollCarousel(dir) {
+      const c = document.getElementById('voiceCarousel');
+      c.scrollBy({ left: dir * (c.offsetWidth * 0.85), behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

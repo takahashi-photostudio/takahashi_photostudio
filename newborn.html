@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ニューボーン撮影プラン | 高橋写真店</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .plan-detail-wrap { max-width: 900px; margin: 0 auto; }
+    .plan-detail-hero { display: flex; gap: 48px; align-items: flex-start; margin-bottom: 40px; }
+    .plan-detail-illust { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .plan-detail-illust h2 { font-size: 1.5rem; color: var(--green-dark); letter-spacing: 0.1em; }
+    .plan-detail-illust .en { font-size: 0.7rem; color: var(--green); letter-spacing: 0.3em; }
+    .plan-detail-desc { flex: 1; padding-top: 8px; }
+    .plan-detail-desc p { font-size: 0.92rem; color: var(--gray); line-height: 2; margin-bottom: 0; }
+    .plan-info-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+    .plan-info-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: var(--dark); line-height: 1.6; }
+    .plan-info-list li::before { content: '✓'; color: var(--green); font-weight: bold; flex-shrink: 0; }
+
+    /* 2プランカード */
+    .two-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px; max-width: 700px; margin-left: auto; margin-right: auto; }
+    .plan-box { background: var(--white); border: 2px solid var(--border); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+    .plan-box-head { background: var(--green-bg); padding: 16px 24px; display: flex; align-items: center; gap: 10px; }
+    .plan-box-head h3 { font-size: 1rem; color: var(--green-dark); letter-spacing: 0.08em; }
+    .plan-box-head .plan-box-icon { font-size: 1.3rem; }
+    .plan-box-body { padding: 24px; flex: 1; }
+    .plan-box-footer { padding: 20px 24px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .plan-box-price-label { font-size: 0.75rem; color: var(--gray); margin-bottom: 2px; }
+    .plan-box-price { font-size: 1.8rem; font-weight: bold; color: var(--green-dark); }
+    .plan-box-price .yen { font-size: 1.1rem; }
+
+    .point-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 48px; }
+    .point-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 24px 20px; text-align: center; }
+    .point-card .p-icon { margin-bottom: 12px; }
+    .point-card h4 { font-size: 0.9rem; color: var(--green-dark); margin-bottom: 8px; }
+    .point-card p { font-size: 0.78rem; color: var(--gray); line-height: 1.75; }
+    .cta-box { background: var(--green-bg); border-radius: 14px; padding: 40px; text-align: center; }
+    .cta-box h3 { font-size: 1.2rem; color: var(--green-dark); margin-bottom: 10px; }
+    .cta-box p { font-size: 0.85rem; color: var(--gray); margin-bottom: 24px; line-height: 1.8; }
+
+    @media (max-width: 700px) {
+      .plan-detail-hero { flex-direction: column; align-items: center; gap: 32px; }
+      .point-grid { grid-template-columns: 1fr; }
+      .cta-box { padding: 28px 20px; }
+      .two-plans { grid-template-columns: 1fr; max-width: 100%; }
+      .plan-box-footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body class="page-body">
+
+  <header>
+    <a href="index.html" class="logo">
+      <span class="logo-main">高橋写真店</span>
+      <span class="logo-sub">TAKAHASHI PHOTO STUDIO</span>
+    </a>
+    <nav class="header-nav">
+      <a href="works.html">作例</a>
+      <a href="menu.html" class="active">メニュー</a>
+      <a href="profile.html">プロフィール</a>
+      <a href="voice.html">お客様の声</a>
+      <a href="contact.html" class="nav-contact">お問い合わせ</a>
+    </nav>
+  </header>
+
+  <div class="page-hero">
+    <h1>ニューボーン撮影プラン</h1>
+    <span class="page-hero-en">NEWBORN</span>
+  </div>
+
+  <section class="section">
+    <div class="plan-detail-wrap">
+
+      <div class="plan-detail-hero">
+        <div class="plan-detail-illust">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:160px;height:160px;">
+            <circle cx="60" cy="60" r="58" fill="#e4f5ed"/>
+            <ellipse cx="60" cy="88" rx="36" ry="16" fill="#c8dfc8" stroke="#4a8c6e" stroke-width="2"/>
+            <path d="M24 80 Q24 64 60 64 Q96 64 96 80 L96 88 Q96 104 60 104 Q24 104 24 88Z" fill="#cceedd" stroke="#4a8c6e" stroke-width="2"/>
+            <path d="M24 84 Q60 76 96 84" stroke="#4a8c6e" stroke-width="1" stroke-dasharray="4,4" fill="none"/>
+            <path d="M24 92 Q60 84 96 92" stroke="#4a8c6e" stroke-width="1" stroke-dasharray="4,4" fill="none"/>
+            <circle cx="60" cy="58" r="20" fill="#e8f7ee" stroke="#4a8c6e" stroke-width="2"/>
+            <circle cx="54" cy="56" r="2.5" fill="#4a8c6e"/>
+            <circle cx="66" cy="56" r="2.5" fill="#4a8c6e"/>
+            <path d="M57 63 Q60 66 63 63" stroke="#4a8c6e" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <circle cx="52" cy="61" r="4" fill="#f4a8b0" opacity="0.4"/>
+            <circle cx="68" cy="61" r="4" fill="#f4a8b0" opacity="0.4"/>
+            <path d="M38 52 Q38 38 60 38 Q82 38 82 52" fill="#aaddc4" stroke="#4a8c6e" stroke-width="2"/>
+            <rect x="36" y="50" width="48" height="6" rx="3" fill="#7ec4a2" stroke="#4a8c6e" stroke-width="1.5"/>
+            <path d="M94 32 L96 38 L102 38 L97 42 L99 48 L94 44 L89 48 L91 42 L86 38 L92 38Z" fill="#f0c040" opacity="0.8"/>
+          </svg>
+          <h2>ニューボーン</h2>
+          <span class="en">NEWBORN</span>
+        </div>
+
+        <div class="plan-detail-desc">
+          <p>生まれたばかりの赤ちゃんの、ふにゃふにゃとした小さな手足、愛らしい寝顔。この時期だけの奇跡のような瞬間を、ご自宅への出張撮影で丁寧に記録します。慣れた環境でリラックスしながら、家族全員で特別な時間をお過ごしください。</p>
+        </div>
+      </div>
+
+      <!-- 2プラン -->
+      <div class="two-plans">
+
+        <!-- 出張撮影プラン -->
+        <div class="plan-box">
+          <div class="plan-box-head">
+            <span class="plan-box-icon">🌿</span>
+            <h3>出張撮影プラン</h3>
+          </div>
+          <div class="plan-box-body">
+            <ul class="plan-info-list">
+              <li>お客様ご自宅への出張撮影</li>
+              <li>撮影時間 約1〜1.5時間</li>
+              <li>データ納品 100枚以上（全データ納品）</li>
+              <li>フォトパネル付き</li>
+            </ul>
+          </div>
+          <div class="plan-box-footer">
+            <div>
+              <p class="plan-box-price-label">料金（税込）</p>
+              <div class="plan-box-price"><span class="yen">¥</span>30,000</div>
+            </div>
+            <a href="contact.html" class="btn btn-outline-green">相談する</a>
+          </div>
+        </div>
+
+        <!-- 出張撮影 アルバム付きプラン -->
+        <div class="plan-box">
+          <div class="plan-box-head">
+            <span class="plan-box-icon">📖</span>
+            <h3>出張撮影<br>アルバム付きプラン</h3>
+          </div>
+          <div class="plan-box-body">
+            <ul class="plan-info-list">
+              <li>お客様ご自宅への出張撮影</li>
+              <li>撮影時間 約1〜1.5時間</li>
+              <li>データ納品 100枚以上（全データ納品）</li>
+              <li>フォトパネル付き</li>
+              <li>アルバム付き（10ページ）</li>
+            </ul>
+          </div>
+          <div class="plan-box-footer">
+            <div>
+              <p class="plan-box-price-label">料金（税込）</p>
+              <div class="plan-box-price"><span class="yen">¥</span>50,000</div>
+            </div>
+            <a href="contact.html" class="btn btn-green">相談する</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="section-label">
+        <h2>撮影のこだわり</h2>
+        <span class="en">POINTS</span>
+        <div class="divider"></div>
+      </div>
+
+      <div class="point-grid">
+        <div class="point-card">
+          <div class="p-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:48px;height:48px;">
+              <circle cx="24" cy="24" r="22" fill="#e4f5ed"/>
+              <ellipse cx="24" cy="30" rx="12" ry="10" fill="#cceedd" stroke="#4a8c6e" stroke-width="1.5"/>
+              <circle cx="24" cy="22" r="8" fill="#e8f7ee" stroke="#4a8c6e" stroke-width="1.5"/>
+              <circle cx="21" cy="21" r="1.5" fill="#4a8c6e"/>
+              <circle cx="27" cy="21" r="1.5" fill="#4a8c6e"/>
+              <circle cx="20" cy="24" r="2.5" fill="#f4a8b0" opacity="0.5"/>
+              <circle cx="28" cy="24" r="2.5" fill="#f4a8b0" opacity="0.5"/>
+            </svg>
+          </div>
+          <h4>安全・安心な撮影</h4>
+          <p>赤ちゃんの安全を最優先に、無理のないポーズで丁寧に撮影します。</p>
+        </div>
+        <div class="point-card">
+          <div class="p-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:48px;height:48px;">
+              <circle cx="24" cy="24" r="22" fill="#e4f5ed"/>
+              <path d="M12 38 L12 22 Q12 14 24 14 Q36 14 36 22 L36 38" fill="#cceedd" stroke="#4a8c6e" stroke-width="1.5"/>
+              <rect x="16" y="24" width="16" height="10" rx="2" fill="#7ec4a2"/>
+              <path d="M18 28 L21 31 L30 24" stroke="#4a8c6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+          </div>
+          <h4>ご自宅への出張撮影</h4>
+          <p>慣れた自宅でリラックスして撮影できます。赤ちゃんも安心して過ごせます。</p>
+        </div>
+        <div class="point-card">
+          <div class="p-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:48px;height:48px;">
+              <circle cx="24" cy="24" r="22" fill="#e4f5ed"/>
+              <circle cx="17" cy="26" r="5" fill="#aaddc4" stroke="#4a8c6e" stroke-width="1.2"/>
+              <circle cx="31" cy="26" r="5" fill="#aaddc4" stroke="#4a8c6e" stroke-width="1.2"/>
+              <ellipse cx="24" cy="32" rx="9" ry="7" fill="#cceedd" stroke="#4a8c6e" stroke-width="1.5"/>
+              <circle cx="24" cy="26" r="4" fill="#e8f7ee" stroke="#4a8c6e" stroke-width="1.2"/>
+              <circle cx="23" cy="25" r="1" fill="#4a8c6e"/>
+              <circle cx="25" cy="25" r="1" fill="#4a8c6e"/>
+            </svg>
+          </div>
+          <h4>家族写真も一緒に</h4>
+          <p>パパ・ママ・上のお子さんと一緒の家族写真も撮影します。</p>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>撮影のご相談はお気軽に</h3>
+        <p>日程・場所・ご要望など、どんなことでもお気軽にご相談ください。<br>2〜3営業日以内にご返信いたします。</p>
+        <a href="contact.html" class="btn btn-green">お問い合わせはこちら</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">高橋写真店</div>
+    <nav class="footer-nav">
+      <a href="index.html">トップ</a>
+      <a href="works.html">作例</a>
+      <a href="menu.html">メニュー</a>
+      <a href="profile.html">プロフィール</a>
+      <a href="voice.html">お客様の声</a>
+      <a href="contact.html">お問い合わせ</a>
+    </nav>
+    <p class="footer-copy">Copyright © 2026 高橋写真店 All Rights Reserved.</p>
+  </footer>
+
+  <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">▲</button>
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('scrollTop').classList.toggle('visible', scrollY > 300);
+    });
+  </script>
+</body>
+</html>
